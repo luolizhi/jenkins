@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 执行过程：从svn拷贝源码到本地目录（svn.src.dir）（这步在hudson里面每个job的svn里配置）
+	复制本地源码：svn.src.dir到src.dir(便于在ant测试)
+	复制到编译目录：src.dir到compile.dir
+	编译：在compile.dir执行编译命令，生成对应的.ta文件和ca文件
+	push：将生成的文件push到手机中
+ -->
+<project name="testHudson" default="all" basedir=".">  
+    <property name="svn.src.dir" value="/home/archermind/hudson/tmp_src/" />
+    <property name="svn.ta.dir" value="${svn.src.dir}/ta" />
+    <property name="svn.ca.dir" value="${svn.src.dir}/ca" />
+    <!-- the svn source dir -->
+    <!-- 从svn服务器上拷贝代码到本地的目录：TA和CA分开保存 -->
+    
+
+    <property name="src.dir" value="src" />
+    <property name="ta.src.dir" value="${src.dir}/ta" />
+    <property name="ca.src.dir" value="${src.dir}/ca" />
+    <!-- put the source code into ta.src.dir then copy it into ta.compile.dir-->
+    <!-- 源代码目录：这个目录的作用是将svn拷贝的代码复制到相应的工程目录下面（方便在命令行直接执行ant测试） -->
+    
+    <property name="compile.dir" value="/home/archermind/hudson/${ant.project.name}/compile"/>
+    <property name="ta.dir" value="${compile.dir}/ta/TTA_DS/TTA_DS"/>
+    <property name="ca.dir" value="${compile.dir}/ca/nutlet_helloworld/jni"/>
+    <property name="ta.compile.dir" value="${ta.dir}/code_files"/>
+    <property name="ca.compile.dir" value="${ca.dir}/host"/>
+    <!-- TA和CA的编译目录：将源码拷贝进去执行命令即可 -->
+
+    <property name="ca.generate.dir" value="/home/archermind/hudson/${ant.project.name}/compile/ca/nutlet_helloworld/libs/arm64-v8a"/>
+    <!-- CA编译完成后生成文件的目录：CA的编译还没有研究清楚，这个目录应该也是可以修改 -->
+
+    <property name="dest.dir" value="dest" />
+    <property name="ta.dest.dir" value="${dest.dir}/ta" />
+    <property name="ca.dest.dir" value="${dest.dir}/ca" />
+    <!-- CA和TA生成文件保存目录：将生成的.ta和ca文件保存在该目录下 -->
+    
+    <property name="phone.dest.dir" value="/system/lib/nutlet_armtz"/>
+    <!-- 手机中保存.ta和ca生成文件的目录 -->
+    
+    <target name="prepare"  description="create the build directories prior to the comile target">  
+        <mkdir dir="${dest.dir}" />
+        <mkdir dir="${ta.dest.dir}" />
+        <mkdir dir="${ca.dest.dir}" />
+
+        <mkdir dir="${src.dir}" />
+        <mkdir dir="${ta.src.dir}" />
+        <mkdir dir="${ca.src.dir}" />
+    </target>
+
+    
+    <target name="clean" depends="makeclean,clean.ca"  description="removes all generated files">
+    	<!-- 删除上次生成目录和文件 -->        
+        <delete dir="${src.dir}"/>
+
+        <delete verbose="true" includeemptydirs="false">
+            <fileset dir="${ta.compile.dir}">
+                <include name="**/**"/>
+            </fileset>
+        </delete>
+        <delete verbose="true" includeemptydirs="false">
+            <fileset dir="${ca.compile.dir}">
+                <include name="**/**"/>
+            </fileset>
+        </delete>
+     
+        <delete dir="${dest.dir}"/>
+    </target>
+
+
+    <target name="clean.ca" >
+        <delete verbose="true" includeemptydirs="false">
+            <fileset dir="${ca.generate.dir}">
+                <include name="**/**"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="copy.svn.ta" depends="prepare" description="copy ta files from svn.ta to src.ta ">
+        <copy todir="${ta.src.dir}" overwrite="true">
+            <fileset dir="${svn.ta.dir}">
+                <include name="**.c"/>
+                <include name="**.h"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="copy.svn.ca" depends="prepare"  description="copy ca files from svn.ca to src.ca ">
+        <copy todir="${ca.src.dir}" overwrite="true">
+            <fileset dir="${svn.ca.dir}">
+                <include name="**.c"/>
+                <include name="**.h"/>
+            </fileset>
+        </copy>
+    </target>
+      
+    <target name="copy.ta.src" depends="copy.svn.ta" description="copy ta files from src.ta to compile.dir">
+        <copy todir="${ta.compile.dir}" overwrite="true">
+            <fileset dir="${ta.src.dir}">
+                <include name="**.c"/>
+                <include name="**.h"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="copy.ca.src" depends="copy.svn.ca"  description="copy ca files from src.ca to compile.dir">
+        <copy todir="${ca.compile.dir}" overwrite="true">
+            <fileset dir="${ca.src.dir}">
+                <include name="**.c"/>
+                <include name="**.h"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.ca" depends="copy.ca.src">
+        <exec executable="/bin/sh">
+            <arg line="-c &quot; cd '${ca.dir}' &amp;&amp; ndk-build &amp;&amp; ls &quot;"/>
+        </exec>
+    </target>
+
+    <target name="compile.ta" depends="copy.ta.src">
+        <exec executable="/bin/sh">
+            <arg line="-c &quot; whoami &amp;&amp; cd '${ta.dir}' &amp;&amp; make &amp;&amp; ls &quot;"/>
+        </exec>
+    </target>
+    
+    <target name="makeclean" >
+        <exec executable="/bin/sh">
+            <arg line="-c &quot; cd '${ta.dir}' &amp;&amp; make clean &amp;&amp; ls &quot;"/>
+            <arg value="-c"/>
+            <arg value="make clean ${ta.dir}"/>
+            <arg value="ls ${ta.dir}"/>
+            <arg value="ls"/>
+
+        </exec>
+    </target>
+    
+    <target name="copy.ta" depends="compile.ta"  description="copy .ta files to dest.dir">
+        <copy todir="${ta.dest.dir}" overwrite="true">
+            <fileset dir="${ta.dir}">
+                <include name="**.ta"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="copy.ca" depends="compile.ca"  description="copy .ca files to dest.dir">
+        <copy todir="${ca.dest.dir}" overwrite="true">
+            <fileset dir="${ca.generate.dir}">
+                <exclude name="**.so"/>
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="adbroot" depends="clean, copy.ta, copy.ca" >
+        <exec executable="/bin/sh">
+            <arg line="-c &quot; adb root &amp;&amp; adb remount &amp;&amp;  adb devices &quot;"/>
+        </exec>
+    </target>
+
+    <target name="push.ca" depends="adbroot" >
+    	<!-- push.ca 将生成的ca文件push到手机指定目录：/system/lib/nutlet_armtz -->
+        <exec executable="/bin/sh">
+            <arg line="-c &quot; adb root  &amp;&amp;  adb remount &amp;&amp; adb push '${ca.dest.dir}' '${phone.dest.dir}' &amp;&amp; ls &quot;"/>
+        </exec>
+    </target>
+
+    <target name="push.ta" depends=" adbroot" >
+    	<!-- push.ta 将生成的ca文件push到手机指定目录：/system/lib/nutlet_armtz -->
+        <exec executable="/bin/sh">
+            <arg line="-c &quot; adb root  &amp;&amp;  adb remount &amp;&amp; adb push '${ta.dest.dir}' '${phone.dest.dir}' &amp;&amp; ls &quot;"/>
+        </exec>
+    </target>
+
+
+    <target name="adb.shell" depends="push.ta, push.ca" description="adb shell to test the ca to ta communication">
+        <exec executable="/bin/sh" >
+            <arg value="-c"/>
+            <arg value="./adb.sh"/>
+        </exec>
+    </target>
+
+
+	<target name="all" depends="clean, adb.shell" description="clean, compile, push"/>
+
+</project>

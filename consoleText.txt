@@ -1,0 +1,156 @@
+Started by user luolizhi
+Updating svn://10.8.8.179/gh/test/test01/personal/LLZ/hudson/testHudson/ta revision: Jun 2, 2016 4:30:41 PM depth:infinity ignoreExternals: false
+At revision 1286
+Updating svn://10.8.8.179/gh/test/test01/personal/LLZ/hudson/testHudson/ca revision: Jun 2, 2016 4:30:41 PM depth:infinity ignoreExternals: false
+At revision 1286
+no change for svn://10.8.8.179/gh/test/test01/personal/LLZ/hudson/testHudson/ta since the previous build
+no change for svn://10.8.8.179/gh/test/test01/personal/LLZ/hudson/testHudson/ca since the previous build
+[tmp_src] $ /bin/sh -xe /home/archermind/apache-tomcat-8.0.35/temp/hudson3620148516389090573.sh
++ whoami
+archermind
++ pwd
+/home/archermind/hudson/tmp_src
+[testHudson] $ ant -file build.xml
+Buildfile: /home/archermind/hudson/testHudson/build.xml
+
+makeclean:
+     [exec] rm -f 534d4152-5443-534c-5444415441535431.ta
+     [exec]   CLEAN   .
+     [exec] code_files
+     [exec] faked_armv7_uta_signed_header.bin
+     [exec] Makefile
+     [exec] sub.mk
+     [exec] user_ta_header_defines.h
+
+clean.ca:
+   [delete] Deleting /home/archermind/hudson/testHudson/compile/ca/nutlet_helloworld/libs/arm64-v8a/libteec.so
+   [delete] Deleting /home/archermind/hudson/testHudson/compile/ca/nutlet_helloworld/libs/arm64-v8a/nutlet_helloworld
+
+clean:
+   [delete] Deleting directory /home/archermind/hudson/testHudson/src
+   [delete] Deleting /home/archermind/hudson/testHudson/compile/ta/TTA_DS/TTA_DS/code_files/TTA_DS.c
+   [delete] Deleting /home/archermind/hudson/testHudson/compile/ta/TTA_DS/TTA_DS/code_files/TTA_DS_protocol.h
+   [delete] Deleting /home/archermind/hudson/testHudson/compile/ca/nutlet_helloworld/jni/host/hello_world.c
+   [delete] Deleting /home/archermind/hudson/testHudson/compile/ca/nutlet_helloworld/jni/host/ta_hello_world.h
+   [delete] Deleting directory /home/archermind/hudson/testHudson/dest
+
+prepare:
+    [mkdir] Created dir: /home/archermind/hudson/testHudson/dest
+    [mkdir] Created dir: /home/archermind/hudson/testHudson/dest/ta
+    [mkdir] Created dir: /home/archermind/hudson/testHudson/dest/ca
+    [mkdir] Created dir: /home/archermind/hudson/testHudson/src
+    [mkdir] Created dir: /home/archermind/hudson/testHudson/src/ta
+    [mkdir] Created dir: /home/archermind/hudson/testHudson/src/ca
+
+copy.svn.ta:
+     [copy] Copying 2 files to /home/archermind/hudson/testHudson/src/ta
+
+copy.ta.src:
+     [copy] Copying 2 files to /home/archermind/hudson/testHudson/compile/ta/TTA_DS/TTA_DS/code_files
+
+compile.ta:
+     [exec] archermind
+     [exec]   CC      code_files/TTA_DS.o
+     [exec]   CC      user_ta_header.o
+     [exec]   CPP     ta.lds
+     [exec]   LD      534d4152-5443-534c-5444415441535431.elf
+     [exec]   OBJDUMP 534d4152-5443-534c-5444415441535431.dmp
+     [exec]   OBJCOPY 534d4152-5443-534c-5444415441535431.bin
+     [exec] rm -f 534d4152-5443-534c-5444415441535431.ta
+     [exec] cat faked_armv7_uta_signed_header.bin 534d4152-5443-534c-5444415441535431.bin > 534d4152-5443-534c-5444415441535431.ta
+     [exec] 534d4152-5443-534c-5444415441535431.bin
+     [exec] 534d4152-5443-534c-5444415441535431.dmp
+     [exec] 534d4152-5443-534c-5444415441535431.elf
+     [exec] 534d4152-5443-534c-5444415441535431.map
+     [exec] 534d4152-5443-534c-5444415441535431.ta
+     [exec] code_files
+     [exec] faked_armv7_uta_signed_header.bin
+     [exec] Makefile
+     [exec] sub.mk
+     [exec] ta.lds
+     [exec] user_ta_header_defines.h
+     [exec] user_ta_header.o
+
+copy.ta:
+     [copy] Copying 1 file to /home/archermind/hudson/testHudson/dest/ta
+
+copy.svn.ca:
+     [copy] Copying 2 files to /home/archermind/hudson/testHudson/src/ca
+
+copy.ca.src:
+     [copy] Copying 2 files to /home/archermind/hudson/testHudson/compile/ca/nutlet_helloworld/jni/host
+
+compile.ca:
+     [exec] Android NDK: WARNING: APP_PLATFORM android-17 is larger than android:minSdkVersion 8 in /home/archermind/hudson/testHudson/compile/ca/nutlet_helloworld/AndroidManifest.xml    
+     [exec] [arm64-v8a] Compile        : nutlet_helloworld <= hello_world.c
+     [exec] /home/archermind/hudson/testHudson/compile/ca/nutlet_helloworld/jni/host/hello_world.c: In function 'main':
+     [exec] /home/archermind/hudson/testHudson/compile/ca/nutlet_helloworld/jni/host/hello_world.c:72:2: warning: incompatible implicit declaration of built-in function 'memset'
+     [exec]   memset(&op, 0, sizeof(op));
+     [exec]   ^
+     [exec] [arm64-v8a] Executable     : nutlet_helloworld
+     [exec] [arm64-v8a] Install        : nutlet_helloworld => libs/arm64-v8a/nutlet_helloworld
+     [exec] [arm64-v8a] Install        : libteec.so => libs/arm64-v8a/libteec.so
+     [exec] Android.mk
+     [exec] Application.mk
+     [exec] host
+     [exec] public
+
+copy.ca:
+     [copy] Copying 1 file to /home/archermind/hudson/testHudson/dest/ca
+
+adbroot:
+     [exec] adbd is already running as root
+     [exec] remount succeeded
+     [exec] List of devices attached
+     [exec] LJS8IV5L5DVKMZW4	device
+     [exec] 
+
+push.ta:
+     [exec] adbd is already running as root
+     [exec] push: dest/ta/534d4152-5443-534c-5444415441535431.ta -> /system/lib/nutlet_armtz/534d4152-5443-534c-5444415441535431.ta
+     [exec] remount succeeded
+     [exec] adb.sh
+     [exec] build6.2.xml
+     [exec] build.old.xml
+     [exec] build.ol.xml
+     [exec] build.xml
+     [exec] compile
+     [exec] dest
+     [exec] phone
+     [exec] pull.sh
+     [exec] src
+     [exec] test
+     [exec] 1 file pushed. 0 files skipped.
+     [exec] 765 KB/s (93828 bytes in 0.119s)
+
+push.ca:
+     [exec] adbd is already running as root
+     [exec] remount succeeded
+     [exec] push: dest/ca/nutlet_helloworld -> /system/lib/nutlet_armtz/nutlet_helloworld
+     [exec] adb.sh
+     [exec] build6.2.xml
+     [exec] build.old.xml
+     [exec] build.ol.xml
+     [exec] build.xml
+     [exec] compile
+     [exec] dest
+     [exec] phone
+     [exec] pull.sh
+     [exec] src
+     [exec] test
+     [exec] 1 file pushed. 0 files skipped.
+     [exec] 108 KB/s (5664 bytes in 0.050s)
+
+adb.shell:
+     [exec] this is the adb.sh hello world
+     [exec] adbd is already running as root
+     [exec] func:TEEC_InitializeContext ended
+     [exec] func:TEEC_Opensession ended
+     [exec] Invoking TA to increment 11
+     [exec] TA incremented value to 12
+
+all:
+
+BUILD SUCCESSFUL
+Total time: 10 seconds
+Finished: SUCCESS

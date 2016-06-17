@@ -12,6 +12,9 @@ from time import clock as now
 
 local_path = os.getenv("local_path")
 print 'local_path='+local_path    #test
+generate_file = os.getenv("generate_local_name")
+print 'generate_file='+generate_file 
+
 
 #计算sha1sum值,本代码没有使用该方法
 def getSha1(filename):
@@ -23,13 +26,17 @@ def getSha1(filename):
 def main():
     paths=[]
     paths.append(local_path)
+    if os.path.exists(generate_file):
+        print 'file has exists'
+        check_call("rm "+generate_file,shell=True)
+    check_call("touch "+generate_file,shell=True)
     start=now()
     for path in paths:
         for file in os.listdir(path):
-            print file
+#            print file
             real_file=os.path.join(path,file)
             if os.path.isfile(real_file) == True:
-                check_call("sha1sum "+real_file+" >> local_sha1sum",shell=True)
+                check_call("sha1sum "+real_file+" >> "+ generate_file ,shell=True)
             else:
                 paths.append(real_file)
 

@@ -1,2 +1,6 @@
-´ÓSVNcheck´úÂëµ½±¾µØ£¬ÔÚ±¾µØ±àÒëtaºÍca£¬È»ºó½«Éú²úµÄÎÄ¼ş.ta pushµ½ÊÖ»úÖĞ£¬Í¨¹ıadb shell£¨ÔÚantÖĞµ÷ÓÃshell½Å²½ÊµÏÖ£©Ö´ĞĞcaµÄÉú³ÉÎÄ¼ş£¬¿ÉÒÔÔÚ¿ØÖÆÌ¨¿´µ½½á¹û¡£¼ûconsoleText¸½¼ş¡£
-ÏàÓ¦µÄbuild.xmlºÍadb.sh¡£
+ä½¿ç”¨Pythonè„šæœ¬ï¼Œå®ç°shellå‘½ä»¤çš„è°ƒç”¨
+ï¼ˆfrom subprocess import callï¼‰
+åŒ…æ‹¬ls
+adb shell
+adb push
+è·å–jenkinsç¯å¢ƒå˜é‡çš„å€¼ï¼ˆimport osï¼‰

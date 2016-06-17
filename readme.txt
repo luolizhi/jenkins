@@ -1,2 +1,4 @@
-从SVNcheck代码到本地，在本地编译ta和ca，然后将生产的文件.ta push到手机中，通过adb shell（在ant中调用shell脚步实现）执行ca的生成文件，可以在控制台看到结果。见consoleText附件。
-相应的build.xml和adb.sh。
+通过不同参数执行不同的编译环境，不用手动修改MakeFile。
+在job配置中，勾选参数化构建过程，选择extend choice parameter（需要安装extended choice parameter 插件）或者choice parameter，目前感觉效果一样。
+这个参数可以在execute shell中调用：echo ${ta_path}
+也可以在ant中直接调用具体在build.xml在compile过程中使用。

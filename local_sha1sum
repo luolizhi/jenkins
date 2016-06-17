@@ -1,0 +1,11 @@
+ae65e78cd9d9065c4d5d27ed72448d3f0eca3ff5  /home/archermind/jenkins/project/checksum/local/bin/keymaster/b657ba17-b3b3-47f5-b3896b53f30c0baf.ta
+4232357d9d4dc2dc026c32540e146dc252808f86  /home/archermind/jenkins/project/checksum/local/bin/ifaa1.0/08010203-0000-0000-0000000000000000.ta
+fbc5b5f0b1462cdaa602ab0b4fcac12dc057a265  /home/archermind/jenkins/project/checksum/local/bin/ifaa1.0/alipaymanager.jar
+6b6709d88bf4ee58ae8345b12e41b2de835b3f39  /home/archermind/jenkins/project/checksum/local/bin/boot/boot.img
+cf410d52060020a388d29777a43ca16afd9387d3  /home/archermind/jenkins/project/checksum/local/bin/preloader/preloader_x1_plus.bin
+8ea9bf1764228b2d94c2540464bf964ac8d58045  /home/archermind/jenkins/project/checksum/local/bin/keymaster/so_64位/nutlet.mt6755.so
+e1833c8389dffe5f0acdb8c972b2cd3a801cfc53  /home/archermind/jenkins/project/checksum/local/bin/ree/client/libteec.so_64
+cca2bb232b8052a02f951d1ac7e479388941cd88  /home/archermind/jenkins/project/checksum/local/bin/ree/client/libteec.so_32
+57021f87a3c59d6f96bf427921eeb5457b783c8a  /home/archermind/jenkins/project/checksum/local/bin/ree/client/tee-supplicant
+80a463f38e71cc16764d1949d43e6d70fbcf67fb  /home/archermind/jenkins/project/checksum/local/bin/tee/debug/trustzone-log.bin
+f747ed3e0c48d188ebc80ee3bea563455b81b313  /home/archermind/jenkins/project/checksum/local/bin/tee/release/trustzone-nolog.bin

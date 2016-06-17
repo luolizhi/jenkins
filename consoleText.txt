@@ -1,40 +1,44 @@
 Started by user luolizhi
-Building in workspace /home/archermind/jenkins/project/compile_ta
-Updating svn://10.8.8.179/gh/test/test01/personal/LLZ/Jenkins/testJenkins/ta at revision '2016-06-08T12:39:30.273 +0800'
-D         compile_ta
-At revision 1719
-[compile_ta] $ /bin/sh -xe /home/archermind/apache-tomcat-8.0.35/temp/hudson1702531525585507766.sh
+Building in workspace /home/archermind/jenkins/project/testTA
+Updating svn://10.8.8.179/gh/test/test01/personal/LLZ/Jenkins/testJenkins/ta at revision '2016-06-12T13:52:14.104 +0800'
+At revision 1721
+no change for svn://10.8.8.179/gh/test/test01/personal/LLZ/Jenkins/testJenkins/ta since the previous build
+No emails were triggered.
+[testTA] $ /bin/sh -xe /home/archermind/apache-tomcat-8.0.35/temp/hudson4993472336251567923.sh
++ echo ----Execute shell开始----
+----Execute shell开始----
 + whoami
 archermind
 + pwd
-/home/archermind/jenkins/project/compile_ta
-+ echo /home/archermind/jenkins/public/compile/ta/TTA_DS/TTA_DS
-/home/archermind/jenkins/public/compile/ta/TTA_DS/TTA_DS
-[compile_ta] $ /usr/share/ant/bin/ant -file build.xml -Dta_path0=/home/archermind/jenkins/public/compile/ta/TTA_Time -Dta_path=/home/archermind/jenkins/public/compile/ta/TTA_DS/TTA_DS
-Buildfile: /home/archermind/jenkins/project/compile_ta/build.xml
+/home/archermind/jenkins/project/testTA
++ echo WORKSPACE=/home/archermind/jenkins/project/testTA
+WORKSPACE=/home/archermind/jenkins/project/testTA
++ echo SVN_REVISION=1721
+SVN_REVISION=1721
++ echo ----Execute shell结束----
+----Execute shell结束----
+[testTA] $ ant -Dta_path=/home/archermind/jenkins/public/compile/ta/TTA_DS/TTA_DS
+Buildfile: /home/archermind/jenkins/project/testTA/build.xml
 
 makeclean:
-     [echo] clean the file 
+     [echo] 调用make clean 命令清除上次生成的文件
      [exec] rm -f 534d4152-5443-534c-5444415441535431.ta
      [exec]   CLEAN   .
-     [exec] code_files
-     [exec] faked_armv7_uta_signed_header.bin
-     [exec] Makefile
-     [exec] sub.mk
-     [exec] user_ta_header_defines.h
 
 clean:
+     [echo] 删除上次生成目录和文件并新建目标目录 
    [delete] Deleting /home/archermind/jenkins/public/compile/ta/TTA_DS/TTA_DS/code_files/TTA_DS.c
    [delete] Deleting /home/archermind/jenkins/public/compile/ta/TTA_DS/TTA_DS/code_files/TTA_DS_protocol.h
-   [delete] Deleting directory /home/archermind/jenkins/project/compile_ta/dest
-    [mkdir] Created dir: /home/archermind/jenkins/project/compile_ta/dest
-    [mkdir] Created dir: /home/archermind/jenkins/project/compile_ta/dest/ta
+   [delete] Deleting directory /home/archermind/jenkins/project/testTA/dest
+    [mkdir] Created dir: /home/archermind/jenkins/project/testTA/dest
+    [mkdir] Created dir: /home/archermind/jenkins/project/testTA/dest/ta
 
 copy.ta.src:
+     [echo] 把SVN check out 的代码复制到编译目录
      [copy] Copying 2 files to /home/archermind/jenkins/public/compile/ta/TTA_DS/TTA_DS/code_files
 
 compile.ta:
-     [exec] archermind
+     [echo] 调用make命令编译ta
      [exec]   CC      code_files/TTA_DS.o
      [exec]   CC      user_ta_header.o
      [exec]   CPP     ta.lds
@@ -45,11 +49,18 @@ compile.ta:
      [exec] cat faked_armv7_uta_signed_header.bin 534d4152-5443-534c-5444415441535431.bin > 534d4152-5443-534c-5444415441535431.ta
 
 copy.ta:
-     [copy] Copying 1 file to /home/archermind/jenkins/project/compile_ta/dest/ta
+     [echo] 将生成的ta复制到指定的目标目录
+     [copy] Copying 1 file to /home/archermind/jenkins/project/testTA/dest/ta
 
 all:
 
 BUILD SUCCESSFUL
-Total time: 2 seconds
-Sending e-mails to: luolizhi@whty.com.cn gh_luolizhi@whty.com.cn
+Total time: 1 second
+SSH: Connecting from host [Archermind]
+SSH: Connecting with configuration [10.8.92.82] ...
+SSH: Disconnecting configuration [10.8.92.82] ...
+SSH: Transferred 1 file(s)
+Email was triggered for: Success
+Sending email for trigger: Success
+An attempt to send an e-mail to empty list of recipients, ignored.
 Finished: SUCCESS

@@ -2,7 +2,7 @@
 
 <project name="compile_ta" default="all" basedir=".">  
 
-    <property name="ta.src.dir" value="/home/archermind/jenkins/public/tmp_src/ta" />
+    <property name="ta.src.dir" value="/home/archermind/jenkins/tmp_src/ta" />
     <property name="compile.dir" value="${ta_path}" />
     <property name="compile.ta.dir" value="${compile.dir}/code_files" />
 
@@ -13,15 +13,14 @@
 
 
     <target name="clean" depends="makeclean"  description="removes all generated files">
-        <!-- 删除上次生成目录和文件 -->        
-        <!-- <delete dir="${src.dir}"/> -->
+        <echo message="删除上次生成目录和文件并新建目标目录 "/>
 
         <delete verbose="true" includeemptydirs="false">
             <fileset dir="${compile.ta.dir}">
                 <include name="**/**"/>
             </fileset>
         </delete>
-     
+
         <delete dir="${dest.dir}"/>
         
         <mkdir dir="${dest.dir}" />
@@ -30,13 +29,14 @@
 
 
     <target name="makeclean" >
-        <echo message="clean the file "/>
+        <echo message="调用make clean 命令清除上次生成的文件"/>
         <exec executable="/bin/sh">
-            <arg line="-c &quot; cd '${compile.dir}' &amp;&amp; make clean &amp;&amp; ls &quot;"/>
-
+            <arg line="-c &quot; cd '${compile.dir}' &amp;&amp; make clean  &quot;"/>
         </exec>
     </target>
-   <target name="copy.ta.src" depends="clean" description="copy ta files from svn.ta to compile.ta ">
+
+    <target name="copy.ta.src" depends="clean" description="copy ta files from svn.ta to compile.ta ">
+        <echo message="把SVN check out 的代码复制到编译目录"/>
         <copy todir="${compile.ta.dir}" overwrite="true">
             <fileset dir="${ta.src.dir}">
                 <include name="**.c"/>
@@ -47,13 +47,15 @@
 
 
     <target name="compile.ta" depends="copy.ta.src">
+        <echo message="调用make命令编译ta"/>
         <exec executable="/bin/sh">
-            <arg line="-c &quot; whoami &amp;&amp; cd '${compile.dir}' &amp;&amp; make  &quot;"/>
+            <arg line="-c &quot; cd '${compile.dir}' &amp;&amp; make  &quot;"/>
         </exec>
     </target>
 
 
- <target name="copy.ta" depends="compile.ta"  description="copy .ta files to dest.dir">
+    <target name="copy.ta" depends="compile.ta"  description="copy .ta files to dest.dir">
+        <echo message="将生成的ta复制到指定的目标目录"/>
         <copy todir="${ta.dest.dir}" overwrite="true">
             <fileset dir="${compile.dir}">
                 <include name="**.ta"/>
@@ -61,7 +63,7 @@
         </copy>
     </target>
 
-	<target name="all" depends="copy.ta" description="clean, compile, push"/>
+    <target name="all" depends="copy.ta" description="clean, compile, push"/>
 
 </project>
 

@@ -21,10 +21,15 @@
                 <include name="**/**"/>
             </fileset>
         </delete>
+        <delete verbose="true" includeemptydirs="false">
+            <fileset dir="${ca.generate.dir}">
+                <include name="**/**"/>
+            </fileset>
+        </delete>
 
         <delete dir="${ca.dest.dir}"/>
         
-        <mkdir dir="${dest.dir}" />
+
         <mkdir dir="${ca.dest.dir}" />
     </target>
 
@@ -56,8 +61,8 @@
     <target name="copy.ca" depends="compile.ca"  description="copy .ca files to dest.dir">
         <copy todir="${ca.dest.dir}" overwrite="true">
             <fileset dir="${ca.generate.dir}">
-                <exclude name="**.so"/>
-                <include name="helloworld"/>
+                <exclude name="**.s"/>
+                <!-- <include name="helloworld"/> -->
             </fileset>
         </copy>
     </target>

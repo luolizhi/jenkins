@@ -1,2 +1,9 @@
-其他的安装编译过程，用mmm 实现，直接在execute shell输入命令即可。
-没有实现从svn的整个过程。
+将待编译的源代码放在SVN上，
+ant会自动将代码拷贝到/home/archermind/jenkins/public/compile/ca/nutlet_helloworld/jni/host
+
+在/home/archermind/jenkins/public/compile/ca/nutlet_helloworld执行ndk-build命令
+
+由于在Android.mk中使用了通配符，可以不用修改这个文件就可以自动生成。
+这个生成的文件名默认为helloworld在/home/archermind/jenkins/public/compile/ca/nutlet_helloworld/libs/arm64-v8a
+
+会自动拷贝到dest/ca中。
